@@ -30,14 +30,14 @@ class _MainScaffoldState extends State<MainScaffold> {
         leading: Image.asset('lib/common/logo.gif'),
         title: Text(
           "Restaurant",
-          style: TextStyle(color: theme.colorScheme.onPrimaryContainer),
+          style: TextStyle(color: theme.colorScheme.onBackground),
         ),
-        surfaceTintColor: Colors.white70,
-        backgroundColor: theme.colorScheme.primaryContainer,
+        backgroundColor: theme.colorScheme.background,
         titleTextStyle: theme.textTheme.headlineLarge,
       ),
       body: _childern[_currentIndex],
       bottomNavigationBar: MyBottomNavigationBar(
+        theme: theme,
         currentIndex: _currentIndex,
         onTap: (index) => {
           setState(() {
@@ -45,7 +45,7 @@ class _MainScaffoldState extends State<MainScaffold> {
           })
         },
       ),
-      backgroundColor: theme.colorScheme.primary,
+      backgroundColor: theme.colorScheme.background,
     );
   }
 }
