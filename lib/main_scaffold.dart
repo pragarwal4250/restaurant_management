@@ -37,7 +37,6 @@ class _MainScaffoldState extends State<MainScaffold> {
       ),
       body: _childern[_currentIndex],
       bottomNavigationBar: MyBottomNavigationBar(
-        theme: theme,
         currentIndex: _currentIndex,
         onTap: (index) => {
           setState(() {

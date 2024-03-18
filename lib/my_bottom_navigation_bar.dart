@@ -4,18 +4,18 @@ class MyBottomNavigationBar extends StatelessWidget {
 
   final int currentIndex;
   final Function(int) onTap;
-  final ThemeData theme;
 
   const MyBottomNavigationBar({
     super.key,
     required this.currentIndex,
     required this.onTap,
-    required this.theme,
     });
 
   @override
   Widget build(BuildContext context) {
     
+    final ThemeData theme = Theme.of(context);
+
     return BottomNavigationBar(
       backgroundColor: theme.colorScheme.surface,
       selectedItemColor: theme.colorScheme.primary,
