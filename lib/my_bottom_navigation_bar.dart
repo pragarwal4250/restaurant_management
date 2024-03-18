@@ -13,6 +13,9 @@ class MyBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
+    final ThemeData themeData = Theme.of(context);
+    
     return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
@@ -34,6 +37,7 @@ class MyBottomNavigationBar extends StatelessWidget {
       ],
       currentIndex: currentIndex,
       onTap: onTap,
+      backgroundColor: themeData.colorScheme.onSurfaceVariant,
     );
   }
 }

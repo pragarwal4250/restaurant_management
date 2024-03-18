@@ -22,8 +22,20 @@ class _MainScaffoldState extends State<MainScaffold> {
   
   @override
   Widget build(BuildContext context) {
+  
+    final ThemeData theme = Theme.of(context);
+
     return Scaffold(
-      appBar: AppBar(title: const Text("Restaurant"),),
+      appBar: AppBar(
+        leading: Image.asset('lib/common/logo.gif'),
+        title: Text(
+          "Restaurant",
+          style: TextStyle(color: theme.colorScheme.onPrimaryContainer),
+        ),
+        surfaceTintColor: Colors.white70,
+        backgroundColor: theme.colorScheme.primaryContainer,
+        titleTextStyle: theme.textTheme.headlineLarge,
+      ),
       body: _childern[_currentIndex],
       bottomNavigationBar: MyBottomNavigationBar(
         currentIndex: _currentIndex,
@@ -33,6 +45,7 @@ class _MainScaffoldState extends State<MainScaffold> {
           })
         },
       ),
+      backgroundColor: theme.colorScheme.primary,
     );
   }
 }
