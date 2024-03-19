@@ -1,6 +1,7 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant_management/main_scaffold.dart';
+import 'package:restaurant_management/theme/text.dart';
 import 'theme/theme.dart';
 
 void main() {
@@ -23,10 +24,12 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: lightColorScheme,
+        fontFamily: font,
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
         colorScheme: darkColorScheme,
+        fontFamily: font,
       ),
       home: const MainScaffold(),
     );
