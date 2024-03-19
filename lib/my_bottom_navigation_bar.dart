@@ -17,9 +17,7 @@ class MyBottomNavigationBar extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
 
     return BottomNavigationBar(
-      backgroundColor: theme.colorScheme.surface,
-      selectedItemColor: theme.colorScheme.primary,
-      unselectedItemColor: theme.colorScheme.onSurface,
+      backgroundColor: theme.colorScheme.primaryContainer,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),

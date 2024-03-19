@@ -30,9 +30,9 @@ class _MainScaffoldState extends State<MainScaffold> {
         leading: Image.asset('lib/common/logo.gif'),
         title: Text(
           "Restaurant",
-          style: TextStyle(color: theme.colorScheme.onBackground),
+          style: TextStyle(color: theme.colorScheme.onPrimaryContainer),
         ),
-        backgroundColor: theme.colorScheme.background,
+        backgroundColor: theme.colorScheme.primaryContainer,
         titleTextStyle: theme.textTheme.headlineLarge,
       ),
       body: _childern[_currentIndex],
