@@ -26,16 +26,28 @@ class _MainScaffoldState extends State<MainScaffold> {
     final ThemeData theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(
-        leading: Image.asset('lib/common/logo.gif'),
-        title: Text(
-          "Restaurant",
-          style: TextStyle(color: theme.colorScheme.onPrimaryContainer),
-        ),
-        backgroundColor: theme.colorScheme.primaryContainer,
-        titleTextStyle: theme.textTheme.headlineLarge,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            leading: Image.asset('lib/common/logo.gif'),
+            centerTitle: true,
+            title: Text(
+              "Restaurant",
+              style: TextStyle(
+                color: theme.colorScheme.onPrimaryContainer
+                ),
+            ),
+            expandedHeight: 0,
+            floating: false,
+            pinned: true,
+            backgroundColor: theme.colorScheme.primaryContainer,
+            titleTextStyle: theme.textTheme.headlineLarge,
+          ),
+          SliverFillRemaining(
+            child: _childern[_currentIndex],
+          )
+        ],
       ),
-      body: _childern[_currentIndex],
       bottomNavigationBar: MyBottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) => {
@@ -44,7 +56,6 @@ class _MainScaffoldState extends State<MainScaffold> {
           })
         },
       ),
-      backgroundColor: theme.colorScheme.background,
     );
   }
 }

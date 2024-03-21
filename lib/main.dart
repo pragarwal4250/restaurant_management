@@ -25,11 +25,13 @@ class _MyAppState extends State<MyApp> {
         useMaterial3: true,
         colorScheme: lightColorScheme,
         fontFamily: font,
+        textTheme: fontTheme,
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
         colorScheme: darkColorScheme,
         fontFamily: font,
+        textTheme: fontTheme,
       ),
       home: const MainScaffold(),
     );
