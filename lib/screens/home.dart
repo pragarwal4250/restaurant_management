@@ -1,45 +1,27 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-class HomeCards extends StatelessWidget {
-  HomeCards({super.key});
-
-  final List<Widget> cards = [
-    const RoundedCard(
-      title: 'Card 1',
-    ),
-    const RoundedCard(
-      title: 'Card 2',
-    ),
-    const RoundedCard(
-      title: 'Card 3',
-    )
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: cards,
-    );
-  }
-}
+import 'package:flutter/widgets.dart';
 
 class RoundedCard extends StatelessWidget {
   final String title;
+  final int index;
 
   const RoundedCard({
     super.key,
     required this.title,
+    required this.index,
   });
 
   @override
   Widget build(BuildContext context) {
+    
     final ThemeData theme = Theme.of(context);
 
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.8, // Adjust width as needed
-      height: MediaQuery.of(context).size.height * 0.28, // Adjust height as needed
+      height: MediaQuery.of(context).size.height * 0.33, // Adjust height as needed
       child: Align(
-        alignment: Alignment.center,
+        alignment: Alignment.centerLeft,
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 8.0),
           decoration: BoxDecoration(
@@ -54,7 +36,6 @@ class RoundedCard extends StatelessWidget {
               title,
               style: TextStyle(
                 color: theme.colorScheme.onSecondaryContainer,
-                fontSize: 20,
               ),
             ),
           ),
@@ -65,16 +46,28 @@ class RoundedCard extends StatelessWidget {
 }
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
+
+  final List<String> titles = [
+    'Card 1',
+    'Card 2',
+    'Card 3',
+    'Card 4',
+    'Card 5',
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        SliverToBoxAdapter(
-          child: HomeCards(),
-        )
-      ],
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (BuildContext context, int index) {
+          return RoundedCard(
+            title: titles[index],
+            index: index,
+            );
+        },
+        childCount: titles.length,
+      ),
     );
   }
 }

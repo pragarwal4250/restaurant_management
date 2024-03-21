@@ -14,7 +14,7 @@ class _MainScaffoldState extends State<MainScaffold> {
   int _currentIndex = 0;
 
   final List<Widget> _childern = [
-    const HomeScreen(),
+    HomeScreen(),
     const MenuScreen(),
     const CartScreen(),
     const ProfileScreen(),
@@ -27,6 +27,7 @@ class _MainScaffoldState extends State<MainScaffold> {
 
     return Scaffold(
       body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
         slivers: [
           SliverAppBar(
             leading: Image.asset('lib/common/logo.gif'),
@@ -43,9 +44,7 @@ class _MainScaffoldState extends State<MainScaffold> {
             backgroundColor: theme.colorScheme.primaryContainer,
             titleTextStyle: theme.textTheme.headlineLarge,
           ),
-          SliverFillRemaining(
-            child: _childern[_currentIndex],
-          )
+          _childern[_currentIndex],
         ],
       ),
       bottomNavigationBar: MyBottomNavigationBar(
