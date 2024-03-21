@@ -9,5 +9,8 @@ const fontTheme = TextTheme(
   ),
   displayMedium: TextStyle(
     fontSize: 30,
-  )
+  ),
+  bodyLarge: TextStyle(
+    fontSize: 40,
+  ),
 );

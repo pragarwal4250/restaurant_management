@@ -15,9 +15,9 @@ class _MainScaffoldState extends State<MainScaffold> {
 
   final List<Widget> _childern = [
     HomeScreen(),
-    const MenuScreen(),
-    const CartScreen(),
-    const ProfileScreen(),
+    MenuScreen(),
+    CartScreen(),
+    ProfileScreen(),
   ];
   
   @override
@@ -39,8 +39,9 @@ class _MainScaffoldState extends State<MainScaffold> {
                 ),
             ),
             expandedHeight: 0,
-            floating: false,
-            pinned: true,
+            floating: true,
+            snap: true,
+            pinned: false,
             backgroundColor: theme.colorScheme.primaryContainer,
             titleTextStyle: theme.textTheme.headlineLarge,
           ),
