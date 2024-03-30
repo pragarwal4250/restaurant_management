@@ -5,10 +5,10 @@ class MenuRoundedCard extends StatelessWidget {
   final int index;
 
   const MenuRoundedCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.index,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
