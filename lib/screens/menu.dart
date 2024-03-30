@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import '../rest/rest.dart';
 
 class MenuRoundedCard extends StatelessWidget {
-  final String title;
+  final Dish dish;
   final int index;
 
   const MenuRoundedCard({
     super.key,
-    required this.title,
+    required this.dish,
     required this.index,
   });
 
@@ -35,7 +36,7 @@ class MenuRoundedCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      title,
+                      dish.name,
                       style: theme.textTheme.bodyLarge!.copyWith(
                         color: theme.colorScheme.onSecondaryContainer,
                       ),
@@ -44,7 +45,7 @@ class MenuRoundedCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 20.0),
                       child: Text(
-                        'Description placeholder',
+                        dish.description,
                         style: theme.textTheme.bodySmall!.copyWith(
                           color: theme.colorScheme.onSecondaryContainer,
                         ),
@@ -54,7 +55,7 @@ class MenuRoundedCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 20.0),
                       child: Text(
-                        'Price placeholder',
+                        dish.category,
                         style: theme.textTheme.bodyMedium!.copyWith(
                           color: theme.colorScheme.onSecondaryContainer,
                         ),
@@ -75,14 +76,52 @@ class MenuRoundedCard extends StatelessWidget {
   }
 }
 
+class MenuScreen extends StatefulWidget {
+  const MenuScreen({super.key});
 
-class MenuScreen extends StatelessWidget {
-  MenuScreen({super.key});
+  @override
+  _MenuScreenState createState() => _MenuScreenState();
+}
 
-  final List<String> titles = List.generate(
-  25, // Replace 12 with the desired size n
-  (index) => 'Menu Card ${index + 1}',
-  );
+class _MenuScreenState extends State<MenuScreen> {
+  late Future<List<Dish>> _fetchDishesFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _fetchDishesFuture = fetchDishes();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<Dish>>(
+      future: _fetchDishesFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator(); // Or any other loading indicator
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          List<Dish> dishList = snapshot.data!;
+          // Use the fetched dishList in your UI
+          return MenuScreenFetched(dishList: dishList);
+        }
+      },
+    );
+  }
+}
+
+
+class MenuScreenFetched extends StatelessWidget {
+
+  final List<Dish> dishList;
+
+  const MenuScreenFetched({
+    super.key,
+    required this.dishList,
+    });
 
   @override
   Widget build(BuildContext context) {
@@ -90,11 +129,11 @@ class MenuScreen extends StatelessWidget {
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) {
           return MenuRoundedCard(
-            title: titles[index],
+            dish: dishList[index],
             index: index,
             );
         },
-        childCount: titles.length,
+        childCount: dishList.length,
       ),
     );
   }
