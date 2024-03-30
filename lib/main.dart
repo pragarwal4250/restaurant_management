@@ -1,4 +1,3 @@
-import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant_management/main_scaffold.dart';
 import 'package:restaurant_management/theme/text.dart';

@@ -11,7 +11,7 @@ class MainScaffold extends StatefulWidget {
 
 class _MainScaffoldState extends State<MainScaffold> {
   
-  int _currentIndex = 0;
+  int _currentIndex = 1;
 
   final List<Widget> _childern = [
     HomeScreen(),
