@@ -1,6 +1,3 @@
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
 const String dishUrl = 'http://localhost:3000';
 
 class Dish{
@@ -27,18 +24,8 @@ class Dish{
       name: json['name'],
       category: json['category'],
       description: json['description'],
-      price: json['price'],
+      price: json['price'].toDouble(),
       image: json['image'],
     );
-  }
-}
-
-Future<List<Dish>> fetchDishes() async {
-  final response = await http.get(Uri.parse('${dishUrl}/tasks'));
-  if (response.statusCode == 200) {
-    final List<dynamic> dishesJson = json.decode(response.body);
-    return dishesJson.map((dish) => Dish.fromJson(dish)).toList();
-  } else {
-    throw Exception('Failed to load tasks');
   }
 }

@@ -15,7 +15,7 @@ class _MainScaffoldState extends State<MainScaffold> {
 
   final List<Widget> _childern = [
     HomeScreen(),
-    MenuScreen(),
+    const MenuScreen(),
     CartScreen(),
     ProfileScreen(),
   ];

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import '../rest/rest.dart';
 
 class MenuRoundedCard extends StatelessWidget {
@@ -61,6 +63,16 @@ class MenuRoundedCard extends StatelessWidget {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 5),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: Text(
+                        '\$${dish.price.toStringAsFixed(2)}',
+                        style: theme.textTheme.bodyMedium!.copyWith(
+                          color: theme.colorScheme.onSecondaryContainer,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -84,44 +96,25 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
-  late Future<List<Dish>> _fetchDishesFuture;
+  List<Dish> dishes = [];
 
   @override
   void initState() {
     super.initState();
-    setState(() {
-      _fetchDishesFuture = fetchDishes();
-    });
+    fetchDishes();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<List<Dish>>(
-      future: _fetchDishesFuture,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator(); // Or any other loading indicator
-        } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        } else {
-          List<Dish> dishList = snapshot.data!;
-          // Use the fetched dishList in your UI
-          return MenuScreenFetched(dishList: dishList);
-        }
-      },
-    );
+  Future<void> fetchDishes() async {
+    final response = await http.get(Uri.parse('$dishUrl/dishes'));
+    if (response.statusCode == 200) {
+      final List<dynamic> dishesJson = json.decode(response.body);
+      setState(() {
+        dishes = dishesJson.map((dish) => Dish.fromJson(dish)).toList();
+      });
+    } else {
+      throw Exception('Failed to load tasks');
+    }
   }
-}
-
-
-class MenuScreenFetched extends StatelessWidget {
-
-  final List<Dish> dishList;
-
-  const MenuScreenFetched({
-    super.key,
-    required this.dishList,
-    });
 
   @override
   Widget build(BuildContext context) {
@@ -129,11 +122,11 @@ class MenuScreenFetched extends StatelessWidget {
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) {
           return MenuRoundedCard(
-            dish: dishList[index],
+            dish: dishes[index],
             index: index,
             );
         },
-        childCount: dishList.length,
+        childCount: dishes.length,
       ),
     );
   }
